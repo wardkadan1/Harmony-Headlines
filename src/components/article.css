@@ -1,0 +1,103 @@
+.article-page {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  margin-left: 10%;
+  width: 80%;
+  height: 60vh;
+  background-color: #111312;
+  box-shadow: wheat 0px 17px 60px 11px;
+  border-radius: 10px;
+}
+
+.article-page p {
+  margin-top: 1vh;
+  color: rgb(151, 32, 32);
+  font-size: 25px;
+}
+
+.box-article {
+  display: grid;
+  grid-template-rows: 90% 10%;
+  grid-template-areas: "top-sec" "btnA";
+  margin-top: 4%;
+  width: 80%;
+  height: 80%;
+}
+
+.top-sec {
+  grid-area: top-sec;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "text-area image-area";
+}
+
+.image-article {
+  grid-area: image-area;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-article img {
+  max-width: 90%;
+}
+
+.text-section {
+  grid-area: text-area;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-section h1 {
+  font-size: 18px;
+  padding: 10px;
+  color: wheat;
+}
+
+.btn-sec {
+  display: flex;
+  justify-content: space-between;
+  grid-area: btnA;
+}
+
+.btn-article {
+  background-color: #1e2220;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  width: 45%;
+  box-shadow: wheat 0px 0px 8px 3px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.btn-article:hover {
+  color: rgb(0, 0, 0);
+  background-color: wheat;
+}
+
+.lable-article {
+  color: wheat;
+  padding: 10px 18px;
+  font-size: 12px;
+}
+
+.slider-value {
+  color: wheat;
+}
+
+.slider {
+  width: 60%;
+}
+
+.slider-class {
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-class {
+  display: flex;
+}
