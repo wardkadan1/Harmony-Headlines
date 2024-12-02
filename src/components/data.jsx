@@ -1,4 +1,4 @@
-const url = `http://api.mediastack.com/v1/news`;
+const url = `https://api.mediastack.com/v1/news`;
 const secretKey = import.meta.env.VITE_SECRET_KEY;
 
 export function getNews() {
