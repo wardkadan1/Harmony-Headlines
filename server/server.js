@@ -15,7 +15,7 @@ app.use(express.json());
 const readData = () => {
   try {
     const data = fs.readFileSync(DATA_FILE, "utf8");
-    return JSON.parse(data);
+    return data ? JSON.parse(data) : [];
   } catch (error) {
     console.error("Error reading data file:", error.message);
   }
@@ -39,10 +39,13 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/initial-mood", (req, res) => {
-  const allData = req.body;
-
-  data.push({ allData });
-  writeData(data);
+  const { allData } = req.body;
+  const currentData = readData();
+  const updatedData = [
+    ...currentData,
+    ...allData.map((item) => ({ type: "initial-mood", ...item })),
+  ];
+  writeData(updatedData);
   res.json({ message: "Initial mood data saved successfully", allData });
 });
 
