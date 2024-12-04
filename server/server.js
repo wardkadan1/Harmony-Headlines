@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
@@ -23,7 +24,7 @@ const data = readData();
 
 const writeData = () => {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data));
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
   } catch (error) {
     console.error("Error writing to data file:", error.message);
   }

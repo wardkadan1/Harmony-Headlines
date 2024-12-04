@@ -14,25 +14,23 @@ export default function Dashbord({ news, setNews, mood, setMood }) {
 
         const titles = newsData.data.map((n) => n.title);
         const moodData = await processTitleMood(titles);
+        setMood(moodData);
 
-        const allData = newsData.data.map(
-          async (n, index) =>
-            await fetch("http://localhost:3000/initial-mood", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                title: n.title,
-                author: n.author,
-                published_at: n.published_at,
-                description: n.description,
-                mood: moodData[index],
-              }),
-            })
-        );
+        const allData = newsData.data.map((n, index) => ({
+          title: n.title,
+          author: n.author,
+          published_at: n.published_at,
+          description: n.description,
+          mood: moodData[index],
+        }));
+
+        await fetch("http://localhost:3000/initial-mood", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ allData }),
+        });
 
         console.log(allData);
-
-        setMood(moodData);
       } catch (err) {
         console.error("Error in fetching or processing news:", err);
       }
