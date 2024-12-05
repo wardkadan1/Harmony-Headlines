@@ -19,11 +19,14 @@ export async function dashbordLoder() {
       mood: moodData[index],
     }));
 
-    await fetch("https://harmony-headlines-backend.onrender.com/initial-mood", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ allData }),
-    });
+    const test = await fetch(
+      "https://harmony-headlines-backend.onrender.com/initial-mood",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ allData }),
+      }
+    );
 
     console.log(allData);
     return allData;
