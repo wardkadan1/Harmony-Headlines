@@ -24,11 +24,14 @@ export default function Dashbord({ news, setNews, mood, setMood }) {
           mood: moodData[index],
         }));
 
-        await fetch("http://localhost:3000/initial-mood", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ allData }),
-        });
+        await fetch(
+          "https://harmony-headlines-backend.onrender.com/initial-mood",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ allData }),
+          }
+        );
 
         console.log(allData);
       } catch (err) {
