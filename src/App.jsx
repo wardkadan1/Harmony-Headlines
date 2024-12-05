@@ -13,7 +13,7 @@ function App() {
     {
       path: "/",
       element: <Layout />,
-      /*children: [
+      children: [
         {
           index: true,
           element: (
@@ -24,12 +24,12 @@ function App() {
               setMood={setMood}
             />
           ),
-        },*/
-      /*{
+        },
+        /*{
           path: "/article/:id",
           element: <Article news={news} mood={mood} />,
-        },
-      ],*/
+        },*/
+      ],
     },
   ]);
   return <RouterProvider router={router} />;
