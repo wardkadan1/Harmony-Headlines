@@ -2,7 +2,7 @@
 import "./news.css";
 import { useNavigate } from "react-router-dom";
 
-export default function New({ news, id, mood }) {
+export default function New({ news, id }) {
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -18,7 +18,7 @@ export default function New({ news, id, mood }) {
           <h1>{news.title}</h1>
           <label>{news.author}</label>
           <label>{news.published_at}</label>
-          <label>mood {mood}</label>
+          <label>mood {news.mood}</label>
         </section>
       </a>
     </div>

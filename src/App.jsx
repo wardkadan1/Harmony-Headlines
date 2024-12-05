@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
-import Dashbord from "./components/Dashbord";
+import Dashbord, { dashbordLoder } from "./components/Dashbord";
 import Layout from "./components/Layout";
-import Article from "./components/Article";
+//import Article from "./components/Article";
 //import { useState } from "react";
 import "./App.css";
-import Test from "./components/Test";
 
 function App() {
   // const [news, setNews] = useState([]);
@@ -17,15 +16,8 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            <Test />
-            //<Dashbord
-            // news={news}
-            //   setNews={setNews}
-            //    mood={mood}
-            //   setMood={setMood}
-            //  />
-          ),
+          loader: dashbordLoder,
+          element: <Dashbord />,
         },
         /*{
           path: "/article/:id",
