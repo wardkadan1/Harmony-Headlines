@@ -3,10 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-
 const app = express();
 const PORT = 3000;
-
 const DATA_FILE = path.resolve(__dirname, "data.json");
 
 app.use(cors());
@@ -18,13 +16,13 @@ const readData = () => {
     return data ? JSON.parse(data) : [];
   } catch (error) {
     console.error("Error reading data file:", error.message);
+    return [];
   }
 };
-const data = readData();
 
-const writeData = () => {
+const writeData = (newData) => {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    fs.writeFileSync(DATA_FILE, JSON.stringify(newData, null, 2));
   } catch (error) {
     console.error("Error writing to data file:", error.message);
   }
@@ -35,18 +33,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  res.json(data);
+  const currentData = readData();
+  res.json(currentData);
 });
 
 app.post("/initial-mood", (req, res) => {
   const { allData } = req.body;
-  const currentData = readData();
-  const updatedData = [
-    ...currentData,
-    ...allData.map((item) => ({ type: "initial-mood", ...item })),
-  ];
-  writeData(updatedData);
-  res.json({ message: "Initial mood data saved successfully", allData });
+
+  if (!allData || !Array.isArray(allData)) {
+    return res.status(400).json({ message: "Invalid data format" });
+  }
+
+  writeData(allData);
+
+  res.json({ message: "Data overridden successfully", allData });
 });
 
 app.post("/change-mood", (req, res) => {

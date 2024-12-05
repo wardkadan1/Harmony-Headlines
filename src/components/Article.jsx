@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 import "./article.css";
 import { changeMood } from "./data";
+import { useUser } from "@clerk/clerk-react";
 
 export default function Article({ news, mood }) {
   const { id } = useParams();
   const [value, setValue] = useState(1);
   const [newN, setNewn] = useState([]);
   const navigate = useNavigate();
+  const userData = useUser();
+  const isAdmin = userData.user?.publicMetadata.role === "admin";
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -46,27 +49,31 @@ export default function Article({ news, mood }) {
             <label className="lable-article">
               mood {newN?.mood || mood[id]}
             </label>
-            <section className="slider-class">
-              <label className="slider-value">Choose mood</label>
-              <div className="div-class">
-                <span className="slider-value">{value} </span>
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={value}
-                  onChange={handleChange}
-                  className="slider"
-                />
-              </div>
-            </section>
+            {isAdmin && (
+              <section className="slider-class">
+                <label className="slider-value">Choose mood</label>
+                <div className="div-class">
+                  <span className="slider-value">{value} </span>
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    value={value}
+                    onChange={handleChange}
+                    className="slider"
+                  />
+                </div>
+              </section>
+            )}
           </section>
         </section>
 
         <section className="btn-sec">
-          <button className="btn-article" type="submit" onClick={updateBtn}>
-            Update
-          </button>
+          {isAdmin && (
+            <button className="btn-article" type="submit" onClick={updateBtn}>
+              Update
+            </button>
+          )}
           <button className="btn-article" type="submit" onClick={backBtn}>
             Back
           </button>
