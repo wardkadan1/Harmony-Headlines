@@ -3,12 +3,13 @@ import { RouterProvider } from "react-router-dom";
 import Dashbord from "./components/Dashbord";
 import Layout from "./components/Layout";
 import Article from "./components/Article";
-import { useState } from "react";
+//import { useState } from "react";
 import "./App.css";
+import Test from "./components/Test";
 
 function App() {
-  const [news, setNews] = useState([]);
-  const [mood, setMood] = useState([]);
+  // const [news, setNews] = useState([]);
+  // const [mood, setMood] = useState([]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -17,12 +18,13 @@ function App() {
         {
           index: true,
           element: (
-            <Dashbord
-              news={news}
-              setNews={setNews}
-              mood={mood}
-              setMood={setMood}
-            />
+            <Test />
+            //<Dashbord
+            // news={news}
+            //   setNews={setNews}
+            //    mood={mood}
+            //   setMood={setMood}
+            //  />
           ),
         },
         /*{
