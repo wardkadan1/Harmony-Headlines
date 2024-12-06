@@ -9,8 +9,8 @@ import { useUser } from "@clerk/clerk-react";
 export default function Article() {
   const { id } = useParams();
   const [value, setValue] = useState(1);
-  const [newN, setNewn] = useState([]);
-  const [neW, setNews] = useState([]);
+  const [newN, setNewn] = useState(null);
+  const [neW, setNews] = useState(null);
   const navigate = useNavigate();
   const userData = useUser();
   const isAdmin = userData.user?.publicMetadata.role === "admin";
