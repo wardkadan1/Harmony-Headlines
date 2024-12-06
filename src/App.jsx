@@ -2,13 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Dashbord, { dashbordLoder } from "./components/Dashbord";
 import Layout from "./components/Layout";
-//import Article from "./components/Article";
-//import { useState } from "react";
+import Article from "./components/Article";
 import "./App.css";
 
 function App() {
-  // const [news, setNews] = useState([]);
-  // const [mood, setMood] = useState([]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -19,10 +16,10 @@ function App() {
           loader: dashbordLoder,
           element: <Dashbord />,
         },
-        /*{
+        {
           path: "/article/:id",
-          element: <Article news={news} mood={mood} />,
-        },*/
+          element: <Article />,
+        },
       ],
     },
   ]);

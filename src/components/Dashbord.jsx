@@ -12,6 +12,7 @@ export async function dashbordLoder() {
     const moodData = await processTitleMood(titles);
 
     const allData = newsData.data.map((n, index) => ({
+      id: index,
       title: n.title,
       author: n.author,
       published_at: n.published_at,
@@ -34,42 +35,6 @@ export async function dashbordLoder() {
 
 export default function Dashbord() {
   const news = useLoaderData();
-  /* useEffect(() => {
-    const fetchAndProcessNews = async () => {
-      try {
-        const newsData = await getNews();
-        setNews(newsData.data);
-
-        const titles = newsData.data.map((n) => n.title);
-        const moodData = await processTitleMood(titles);
-        setMood(moodData);
-
-        const allData = newsData.data.map((n, index) => ({
-          title: n.title,
-          author: n.author,
-          published_at: n.published_at,
-          description: n.description,
-          mood: moodData[index],
-        }));
-
-        await fetch(
-          "https://harmony-headlines-backend.onrender.com/initial-mood",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ allData }),
-          }
-        );
-
-        console.log(allData);
-      } catch (err) {
-        console.error("Error in fetching or processing news:", err);
-      }
-    };
-
-    fetchAndProcessNews();
-  }, []);*/
-
   return (
     <div className="list-page">
       {news.map((article, index) => (

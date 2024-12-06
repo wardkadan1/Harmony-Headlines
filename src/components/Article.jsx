@@ -1,16 +1,16 @@
-/* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./article.css";
 import { changeMood } from "./data";
 import { useUser } from "@clerk/clerk-react";
 
-export default function Article({ news, mood }) {
+export default function Article() {
   const { id } = useParams();
   const [value, setValue] = useState(1);
   const [newN, setNewn] = useState([]);
+  const [news, setNews] = useState([]);
   const navigate = useNavigate();
   const userData = useUser();
   const isAdmin = userData.user?.publicMetadata.role === "admin";
@@ -18,6 +18,22 @@ export default function Article({ news, mood }) {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://harmony-headlines-backend.onrender.com/data/${id}`
+        );
+        const result = await response.json();
+        setNews(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const updateBtn = async () => {
     try {
@@ -47,7 +63,7 @@ export default function Article({ news, mood }) {
             <label className="lable-article">{news[id].author}</label>
             <label className="lable-article">{news[id].published_at}</label>
             <label className="lable-article">
-              mood {newN?.mood || mood[id]}
+              mood {newN?.mood || news[id].mood}
             </label>
             {isAdmin && (
               <section className="slider-class">
