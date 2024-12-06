@@ -14,6 +14,7 @@ export async function dashbordLoder() {
     const allData = newsData.data.map((n, index) => ({
       id: index,
       title: n.title,
+      image: n.image,
       author: n.author,
       published_at: n.published_at,
       description: n.description,

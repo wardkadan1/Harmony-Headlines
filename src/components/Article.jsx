@@ -10,7 +10,7 @@ export default function Article() {
   const { id } = useParams();
   const [value, setValue] = useState(1);
   const [newN, setNewn] = useState([]);
-  const [news, setNews] = useState([]);
+  const [neW, setNews] = useState([]);
   const navigate = useNavigate();
   const userData = useUser();
   const isAdmin = userData.user?.publicMetadata.role === "admin";
@@ -26,6 +26,8 @@ export default function Article() {
           `https://harmony-headlines-backend.onrender.com/data/${id}`
         );
         const result = await response.json();
+        console.log(result);
+
         setNews(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,7 +39,7 @@ export default function Article() {
 
   const updateBtn = async () => {
     try {
-      const newsData = await changeMood(news[id], value);
+      const newsData = await changeMood(neW, value);
       setNewn(newsData);
     } catch (err) {
       console.error("Error in fetching or processing news:", err);
@@ -53,17 +55,17 @@ export default function Article() {
       <section className="box-article">
         <section className="top-sec">
           <section className="image-article">
-            <img src={news[id].image} alt="" />
+            <img src={neW.image} alt="" />
           </section>
           <section className="text-section">
-            <h1>{newN?.title || news[id].title}</h1>
+            <h1>{newN?.title || neW.title}</h1>
             <label className="lable-article">
-              {newN?.description || news[id].description}
+              {newN?.description || neW.description}
             </label>
-            <label className="lable-article">{news[id].author}</label>
-            <label className="lable-article">{news[id].published_at}</label>
+            <label className="lable-article">{neW.author}</label>
+            <label className="lable-article">{neW.published_at}</label>
             <label className="lable-article">
-              mood {newN?.mood || news[id].mood}
+              mood {newN?.mood || neW.mood}
             </label>
             {isAdmin && (
               <section className="slider-class">
