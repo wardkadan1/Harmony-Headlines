@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./article.css";
 import { changeMood } from "./data";
 import { useUser } from "@clerk/clerk-react";
@@ -25,6 +24,9 @@ export default function Article() {
         const response = await fetch(
           `https://harmony-headlines-backend.onrender.com/data/${id}`
         );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
         console.log(result);
 
@@ -38,11 +40,13 @@ export default function Article() {
   }, [id]);
 
   const updateBtn = async () => {
-    try {
-      const newsData = await changeMood(neW, value);
-      setNewn(newsData);
-    } catch (err) {
-      console.error("Error in fetching or processing news:", err);
+    if (neW) {
+      try {
+        const updatedNews = await changeMood(neW, value);
+        setNewn(updatedNews);
+      } catch (err) {
+        console.error("Error in fetching or processing news:", err);
+      }
     }
   };
 
@@ -55,23 +59,23 @@ export default function Article() {
       <section className="box-article">
         <section className="top-sec">
           <section className="image-article">
-            <img src={neW.image} alt="" />
+            <img src={neW?.image} alt="News" />
           </section>
           <section className="text-section">
-            <h1>{newN?.title || neW.title}</h1>
+            <h1>{newN?.title || neW?.title}</h1>
             <label className="lable-article">
-              {newN?.description || neW.description}
+              {newN?.description || neW?.description}
             </label>
-            <label className="lable-article">{neW.author}</label>
-            <label className="lable-article">{neW.published_at}</label>
+            <label className="lable-article">{neW?.author}</label>
+            <label className="lable-article">{neW?.published_at}</label>
             <label className="lable-article">
-              mood {newN?.mood || neW.mood}
+              Mood: {newN?.mood || neW?.mood}
             </label>
             {isAdmin && (
               <section className="slider-class">
                 <label className="slider-value">Choose mood</label>
                 <div className="div-class">
-                  <span className="slider-value">{value} </span>
+                  <span className="slider-value">{value}</span>
                   <input
                     type="range"
                     min="1"
@@ -88,11 +92,11 @@ export default function Article() {
 
         <section className="btn-sec">
           {isAdmin && (
-            <button className="btn-article" type="submit" onClick={updateBtn}>
+            <button className="btn-article" type="button" onClick={updateBtn}>
               Update
             </button>
           )}
-          <button className="btn-article" type="submit" onClick={backBtn}>
+          <button className="btn-article" type="button" onClick={backBtn}>
             Back
           </button>
         </section>

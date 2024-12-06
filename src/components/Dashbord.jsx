@@ -27,7 +27,6 @@ export async function dashbordLoder() {
       body: JSON.stringify({ allData }),
     });
 
-    console.log(allData);
     return allData;
   } catch (err) {
     console.error("Error in fetching or processing news:", err);
