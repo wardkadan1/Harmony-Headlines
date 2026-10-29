@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./article.css";
-import { changeMood } from "./data";
+import { changeMood, getArticle } from "./data";
 import { useUser } from "@clerk/clerk-react";
 
 export default function Article() {
@@ -21,15 +21,7 @@ export default function Article() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://harmony-headlines-backend.onrender.com/data/${id}`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        console.log(result);
-
+        const result = await getArticle(id);
         setNews(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,7 +34,7 @@ export default function Article() {
   const updateBtn = async () => {
     if (neW) {
       try {
-        const updatedNews = await changeMood(neW, value);
+        const updatedNews = await changeMood(id, value);
         setNewn(updatedNews);
       } catch (err) {
         console.error("Error in fetching or processing news:", err);
